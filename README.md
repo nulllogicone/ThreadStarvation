@@ -10,14 +10,14 @@ A little Hello world backend/web/app/server/ with 4 endpoints
 
 - Good old full synchronous execution down the line, works but not very efficient **sync-over-sync**  
 - Modern app with legacy services: Not best but works at least not worse than before **async-over-sync**  
-- Old code using modern apis: Shows dead lock in backend ☠ (IIS , kestrel, ngix)  because of thread starvation **sync-over-async (☠)**
-- Full async, shows unlimited web scale **full-async**
+- Old code using modern apis runs into dead locks in backend ☠ (IIS , kestrel, ngix)  because of thread starvation :-(   **sync-over-async (☠)**
+- Full async, unlimited web scale **async-over-async** (:-))
 
 ## Requestor
 
 Makes as may requests against an enpoint as you like!
 Just press key arrow up/down for parallel request threads.
-They can simulate multiple clients.
+You can even start multiple requestor-clients in different terminals against different endpoints.  
 
 [Source code]  
 https://github.com/davidfowl/NdcLondon2018
@@ -25,9 +25,9 @@ https://github.com/davidfowl/NdcLondon2018
 [Youtube]
 https://www.youtube.com/watch?v=RYI0DHoIVaA
 
-## Howto use it
+## Howto to run it
 
-- Open the repository folder in VS Code
+- Open the repository folder in VS Code (or GitHub Codespace)
 - Open two terminal windows (CTRL+`)
 - Navigate in the left to ~/Requestor
 - Navigate in the right to ~/Threading 
