@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading;
 
+
 namespace Requestor
 {
     class Program
@@ -13,6 +14,19 @@ namespace Requestor
         static string path = "hello";
         static List<Thread> requestThreads = new List<Thread>();
 
+        // Maps long response strings to short codes for console output
+        static string ShortenResponse(string input)
+        {
+            return input switch
+            {
+                "sync-over-sync" => "sos",
+                "async-over-sync" => "aos",
+                "sync-over-async (☠)" => "soa ☠",
+                "async-over-async" => "aoa*",
+                _ => input
+            };
+        }
+
         static void Main(string[] args)
         {
             if (args.Length > 0 && !string.IsNullOrEmpty(args[0])) path = args[0];
@@ -20,7 +34,7 @@ namespace Requestor
             Console.WriteLine("--------------------------------");
             Console.WriteLine($"Hammering endpoint: /{path}");
             Console.WriteLine("Press ESC to stop, up- down- keys to change request count");
-            http.Timeout = TimeSpan.FromMilliseconds(2700);
+            http.Timeout = TimeSpan.FromMilliseconds(3000);
 
             while (!(Console.KeyAvailable && Console.ReadKey(true).Key == ConsoleKey.Escape))
             {
@@ -60,7 +74,8 @@ namespace Requestor
                     var sw = Stopwatch.StartNew();
                     var res = http.GetAsync($"http://localhost:5000/{path}").Result;
                     var cnt = res.Content.ReadAsStringAsync().Result;
-                    Console.Write($"{sw.ElapsedMilliseconds}, ");
+
+                    Console.Write($"{sw.ElapsedMilliseconds}-{ShortenResponse(cnt)}, ");
                 }
             }
             catch (ThreadInterruptedException)

@@ -10,28 +10,28 @@ namespace Threading.Controllers
         public string Hello()
         {
             Thread.Sleep(2000); // DB query, REST call,
-            return "Hello World";
+            return "sync-over-sync";
         }
 
         [HttpGet("/hello-async-over-sync")] // New project using old services
         public async Task<string> HelloAsyncOverSync()
         {
             await Task.Run(() => Thread.Sleep(2000));
-            return "Hello World";
+            return "async-over-sync";
         }
 
         [HttpGet("/hello-sync-over-async")] // Old code using new APIs
         public string HelloSyncOverAsync()
         {
             Task.Delay(2000).Wait();
-            return "Hello World";
+            return "sync-over-async (☠)";
         }
 
         [HttpGet("/hello-async")] // All new
         public async Task<string> HelloAsync()
         {
             await Task.Delay(2000);
-            return "Hello World";
+            return "async-over-async";
         }
     }
 }

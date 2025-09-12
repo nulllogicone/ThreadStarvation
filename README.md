@@ -4,11 +4,20 @@ This repository comes from a good presentation of Damian Edwards and David Fowle
 
 Simple story:
 
-- One project is a little Hello world web application with 4 methods
-  - Good old full synchronous execution, works but not very efficient
-  - Modern app with legacy services: async-over-sync, not best but works
-  - Old app code using modern apis: sync-over-async, shows dead IIS (☠) because of thread starvation
-  - Full async, shows unlimited web scale
+## Threading
+
+A little Hello world backend/web/app/server/ with 4 endpoints
+
+- Good old full synchronous execution down the line, works but not very efficient **sync-over-sync**  
+- Modern app with legacy services: Not best but works at least not worse than before **async-over-sync**  
+- Old code using modern apis: Shows dead lock in backend ☠ (IIS , kestrel, ngix)  because of thread starvation **sync-over-async (☠)**
+- Full async, shows unlimited web scale **full-async**
+
+## Requestor
+
+Makes as may requests against an enpoint as you like!
+Just press key arrow up/down for parallel request threads.
+They can simulate multiple clients.
 
 [Source code]  
 https://github.com/davidfowl/NdcLondon2018
@@ -28,7 +37,7 @@ On the left side you can `dotnet run <method name>` where method name is one of 
 
 |dotnet run \<parameter> | comment|
 |---------|---|
-|hello                    | good old sync |
+|hello                    | good old sync-over-sync |
 |hello-async-over-sync    | modern controller over old services |
 |hello-sync-over-async    | ☠ can kill the server, must close terminal |
 |hello-async              | scales!|
